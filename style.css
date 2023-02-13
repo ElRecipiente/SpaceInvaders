@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.invader {
+    width: 1vw;
+    height: 1vh;
+    margin: 1em;
+    background: white;
+}
+
+#ship {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 3vw;
+    height: 1vh;
+    background: white;
+}
