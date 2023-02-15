@@ -15,6 +15,7 @@ body {
     text-align: center;
     font-size: 1.1em;
     font-family: 'Electrolize', sans-serif;
+    text-transform: uppercase;
 }
 
 .invader {
@@ -51,6 +52,9 @@ div.invadersLine3 {
     left: 50%;
     top: 95%;
     background: red;
+    border: 5px solid rgb(255, 57, 57);
+    border-radius: 25%;
+    box-shadow: 0 0 12px red;
     z-index: -1;
     width: 0.5%;
     height: 3%;

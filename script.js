@@ -9,12 +9,13 @@ let invadersLine3 = document.querySelector("div.invadersLine3");
 let invaders;
 let shipX = 47.75;
 let missileToShip = 95;
-let missileX = 50;
+let missileX = shipX + 2.25;
 let missileY = missileToShip;
 let tableInvaders = new Array();
 let invaderTop1 = "10%";
 let invaderTop2 = "20%";
 let invaderTop3 = "30%";
+let leftPush = [];
 
 //*** Enemies Generator ***//
 function invadersAreComing() {
@@ -22,10 +23,12 @@ function invadersAreComing() {
         tableInvaders[i] = new Array();
         let invader = document.createElement("div");
         invader.classList.add("invader");
+        invader.classList.add("invadership");
 
         if (i < 10) {
             invadersLine1.append(invader);
             invader.style.left = `${2.5 + ((i + (i * 4))) * 2}%`;
+            leftPush.push(parseFloat(invader.style.left));
             tableInvaders[i].push(invaderTop1);
             tableInvaders[i].push(invader.style.left);
         }
@@ -34,6 +37,7 @@ function invadersAreComing() {
             let j = i - 10;
             invadersLine2.append(invader);
             invader.style.left = `${7.5 + ((j + (j * 4))) * 2}%`;
+            leftPush.push(parseFloat(invader.style.left));
             tableInvaders[i].push(invaderTop2);
             tableInvaders[i].push(invader.style.left);
         }
@@ -42,14 +46,118 @@ function invadersAreComing() {
             let k = i - 19;
             invadersLine3.append(invader);
             invader.style.left = `${12.5 + ((k + (k * 4))) * 2}%`;
+            leftPush.push(parseFloat(invader.style.left));
             tableInvaders[i].push(invaderTop3);
             tableInvaders[i].push(invader.style.left);
         }
-        invader.style.backgroundImage = `url(img/sprite_${Math.floor(Math.random() * 6)}.png)`;
+
+        setTimeout(() => {
+            invader.style.backgroundImage = `url(img/sprite_${Math.floor(Math.random() * 6)}.png)`;
+        }, i * 100)
     }
     console.log(tableInvaders);
+    console.log(leftPush);
     invaders = document.querySelectorAll("div.invader");
 }
+
+//*** Invaders are Moving ! ***//
+function invadersAreMoving() {
+
+    invaders = document.querySelectorAll("div.invadership");
+
+    for (let i = 0; i < invaders.length; i++) {
+        if (i < 10) {
+
+            setTimeout(() => {
+                leftPush[i] += 2;
+                invaders[i].style.left = `${leftPush[i]}%`
+                tableInvaders[i][1] = `${leftPush[i]}%`
+            }, 1000)
+
+            setTimeout(() => {
+                invaderTop1 = parseFloat(invaderTop1) + 0.1;
+                invadersLine1.style.top = `${invaderTop1}%`
+                tableInvaders[i][0] = `${invaderTop1}%`
+            }, 2000)
+
+            setTimeout(() => {
+                leftPush[i] -= 2;
+                invaders[i].style.left = `${leftPush[i]}%`
+                tableInvaders[i][1] = `${leftPush[i]}%`
+            }, 3000)
+
+            setTimeout(() => {
+                invaderTop1 = parseFloat(invaderTop1) + 0.1;
+                invadersLine1.style.top = `${invaderTop1}%`
+                tableInvaders[i][0] = `${invaderTop1}%`
+            }, 4000)
+        }
+
+        else if (i < 19) {
+
+            setTimeout(() => {
+                leftPush[i] += 2;
+                invaders[i].style.left = `${leftPush[i]}%`;
+                tableInvaders[i][1] = `${leftPush[i]}%`;
+            }, 1000)
+
+            setTimeout(() => {
+                invaderTop2 = parseFloat(invaderTop2) + 0.1;
+                invadersLine2.style.top = `${invaderTop2}%`;
+                tableInvaders[i][0] = `${invaderTop2}%`;
+            }, 2000)
+
+            setTimeout(() => {
+                leftPush[i] -= 2;
+                invaders[i].style.left = `${leftPush[i]}%`;
+                tableInvaders[i][1] = `${leftPush[i]}%`;
+            }, 3000)
+
+            setTimeout(() => {
+                invaderTop2 = parseFloat(invaderTop2) + 0.1;
+                invadersLine2.style.top = `${invaderTop2}%`;
+                tableInvaders[i][0] = `${invaderTop2}%`;
+            }, 4000)
+        }
+
+        else {
+
+            setTimeout(() => {
+                leftPush[i] += 2;
+                invaders[i].style.left = `${leftPush[i]}%`;
+                tableInvaders[i][1] = `${leftPush[i]}%`;
+            }, 1000)
+
+            setTimeout(() => {
+                invaderTop3 = parseFloat(invaderTop3) + 0.1;
+                invadersLine3.style.top = `${invaderTop3}%`;
+                tableInvaders[i][0] = `${invaderTop3}%`;
+            }, 2000)
+
+            setTimeout(() => {
+                leftPush[i] -= 2;
+                invaders[i].style.left = `${leftPush[i]}%`;
+                tableInvaders[i][1] = `${leftPush[i]}%`;
+            }, 3000)
+
+            setTimeout(() => {
+                invaderTop3 = parseFloat(invaderTop3) + 0.1;
+                invadersLine3.style.top = `${invaderTop3}%`;
+                tableInvaders[i][0] = `${invaderTop3}%`;
+            }, 4000)
+        }
+    }
+    setTimeout(() => {
+        requestAnimationFrame(() => {
+            invadersAreMoving();
+        })
+    }, 4000);
+
+}
+
+setTimeout(() => {
+    invadersAreMoving();
+}, 2700)
 
 //*** Is Enemy Here Verification ***//
 function isInvaderHere() {
@@ -102,11 +210,6 @@ document.addEventListener("keydown", (event) => {
         missileX -= 1;
         theMissile.style.left = `${missileX}%`;
     }
-    // else if ((key === "KeyW" || key === "ArrowUp")) {
-    //     window.requestAnimationFrame(() => {
-    //         missileAttack();
-    //     })
-    // }
 })
 
 invadersAreComing();
