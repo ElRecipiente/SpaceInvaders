@@ -65,26 +65,29 @@ function invadersAreComing() {
 }
 
 //*** Invaders are Moving ! ***//
+
 function invadersAreMoving() {
 
+    invaders = document.querySelectorAll("div.invaderStayDead"); /* 'cause the deads have to still here, but dead */
     if (gameEnd) {
         lastDiv = document.querySelector("p")
 
         if (gameEnd && score > 2600) {
             console.log("YOU WIN");
-            lastDiv.textContent = "YOU WIN !"
-            lastDiv.classList.add("win")
+            lastDiv.textContent = "YOU WIN !";
+            lastDiv.classList.add("win");
         }
         else if (gameEnd && score <= 2600) {
             console.log("YOU LOSE");
-            lastDiv.textContent = "YOU LOSE !"
-            lastDiv.classList.add("lose")
+            lastDiv.textContent = "YOU LOSE !";
+            lastDiv.classList.add("lose");
+            invaders.forEach((e) => {
+                e.classList.add("dead");
+            });
         }
     }
 
     else {
-
-        invaders = document.querySelectorAll("div.invaderStayDead"); /* 'cause the deads have to still here, but dead */
 
         for (let i = 0; i < invaders.length; i++) {
 
