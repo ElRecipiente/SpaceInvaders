@@ -17,7 +17,7 @@ let invaderTop2 = "20%";
 let invaderTop3 = "30%";
 let leftPush = [];
 let gameEnd = false;
-let moveDown = 0.3;
+let moveDown = 0.2;
 let moveSide = 2;
 let theGround = 90;
 
@@ -67,154 +67,177 @@ function invadersAreComing() {
 //*** Invaders are Moving ! ***//
 function invadersAreMoving() {
 
-    invaders = document.querySelectorAll("div.invaderStayDead"); /* 'cause the deads have to still here, but dead */
+    if (gameEnd) {
+        lastDiv = document.querySelector("p")
 
-    for (let i = 0; i < invaders.length; i++) {
-
-        if (i < 10) {
-
-            setTimeout(() => {
-                leftPush[i] += moveSide;
-                invaders[i].style.left = `${leftPush[i]}%`
-                if (tableInvaders[i][1] != null) { /* Refresh */
-                    tableInvaders[i][1] = `${leftPush[i]}%`
-                }
-                else {
-                    tableInvaders[i][1] = null;
-                }
-
-            }, 1000)
-
-            setTimeout(() => {
-                invaderTop1 = parseFloat(invaderTop1) + moveDown;
-                invadersLine1.style.top = `${invaderTop1}%`
-                if (tableInvaders[i][0] != null) { /* Refresh */
-                    tableInvaders[i][0] = `${invaderTop1}%`
-                }
-                else {
-                    tableInvaders[i][0] = null;
-                }
-
-            }, 2000)
-
-            setTimeout(() => {
-                leftPush[i] -= moveSide;
-                invaders[i].style.left = `${leftPush[i]}%`
-                if (tableInvaders[i][1] != null) {
-                    tableInvaders[i][1] = `${leftPush[i]}%`
-                }
-                else {
-                    tableInvaders[i][1] = null;
-                }
-            }, 3000)
-
-            setTimeout(() => {
-                invaderTop1 = parseFloat(invaderTop1) + moveDown;
-                invadersLine1.style.top = `${invaderTop1}%`
-                if (tableInvaders[i][0] != null) {
-                    tableInvaders[i][0] = `${invaderTop1}%`
-                }
-                else {
-                    tableInvaders[i][0] = null;
-                }
-            }, 4000)
+        if (gameEnd && score > 2600) {
+            console.log("YOU WIN");
+            lastDiv.textContent = "YOU WIN !"
+            lastDiv.classList.add("win")
         }
-
-        else if (i < 19) {
-
-            setTimeout(() => {
-                leftPush[i] += moveSide;
-                invaders[i].style.left = `${leftPush[i]}%`;
-                if (tableInvaders[i][1] != null) {
-                    tableInvaders[i][1] = `${leftPush[i]}%`
-                }
-                else {
-                    tableInvaders[i][1] = null;
-                }
-            }, 1000)
-
-            setTimeout(() => {
-                invaderTop2 = parseFloat(invaderTop2) + moveDown;
-                invadersLine2.style.top = `${invaderTop2}%`;
-                if (tableInvaders[i][0] != null) {
-                    tableInvaders[i][0] = `${invaderTop2}%`
-                }
-                else {
-                    tableInvaders[i][0] = null;
-                }
-            }, 2000)
-
-            setTimeout(() => {
-                leftPush[i] -= moveSide;
-                invaders[i].style.left = `${leftPush[i]}%`;
-                if (tableInvaders[i][1] != null) {
-                    tableInvaders[i][1] = `${leftPush[i]}%`
-                }
-                else {
-                    tableInvaders[i][1] = null;
-                }
-            }, 3000)
-
-            setTimeout(() => {
-                invaderTop2 = parseFloat(invaderTop2) + moveDown;
-                invadersLine2.style.top = `${invaderTop2}%`;
-                if (tableInvaders[i][0] != null) {
-                    tableInvaders[i][0] = `${invaderTop2}%`
-                }
-                else {
-                    tableInvaders[i][0] = null;
-                }
-            }, 4000)
-        }
-
-        else {
-
-            setTimeout(() => {
-                leftPush[i] += moveSide;
-                invaders[i].style.left = `${leftPush[i]}%`;
-                if (tableInvaders[i][1] != null) {
-                    tableInvaders[i][1] = `${leftPush[i]}%`
-                }
-                else {
-                    tableInvaders[i][1] = null;
-                }
-            }, 1000)
-
-            setTimeout(() => {
-                invaderTop3 = parseFloat(invaderTop3) + moveDown;
-                invadersLine3.style.top = `${invaderTop3}%`;
-                if (tableInvaders[i][0] != null) {
-                    tableInvaders[i][0] = `${invaderTop3}%`
-                }
-                else {
-                    tableInvaders[i][0] = null;
-                }
-            }, 2000)
-
-            setTimeout(() => {
-                leftPush[i] -= moveSide;
-                invaders[i].style.left = `${leftPush[i]}%`;
-                if (tableInvaders[i][1] != null) {
-                    tableInvaders[i][1] = `${leftPush[i]}%`
-                }
-                else {
-                    tableInvaders[i][1] = null;
-                }
-            }, 3000)
-
-            setTimeout(() => {
-                invaderTop3 = parseFloat(invaderTop3) + moveDown;
-                invadersLine3.style.top = `${invaderTop3}%`;
-                if (tableInvaders[i][0] != null) {
-                    tableInvaders[i][0] = `${invaderTop3}%`
-                }
-                else {
-                    tableInvaders[i][0] = null;
-                }
-            }, 4000)
+        else if (gameEnd && score <= 2600) {
+            console.log("YOU LOSE");
+            lastDiv.textContent = "YOU LOSE !"
+            lastDiv.classList.add("lose")
         }
     }
-    isGameOver(invaderTop1, invaderTop2, invaderTop3);
+
+    else {
+
+        invaders = document.querySelectorAll("div.invaderStayDead"); /* 'cause the deads have to still here, but dead */
+
+        for (let i = 0; i < invaders.length; i++) {
+
+            if (i < 10) {
+
+                setTimeout(() => {
+                    leftPush[i] += moveSide;
+                    invaders[i].style.left = `${leftPush[i]}%`
+                    if (tableInvaders[i][1] != null) { /* Refresh */
+                        tableInvaders[i][1] = `${leftPush[i]}%`
+                    }
+                    else {
+                        tableInvaders[i][1] = null;
+                    }
+
+                }, 1000)
+
+                setTimeout(() => {
+                    invaderTop1 = parseFloat(invaderTop1) + moveDown;
+                    invadersLine1.style.top = `${invaderTop1}%`
+                    if (tableInvaders[i][0] != null) { /* Refresh */
+                        tableInvaders[i][0] = `${invaderTop1}%`
+                    }
+                    else {
+                        tableInvaders[i][0] = null;
+                    }
+
+                }, 2000)
+
+                setTimeout(() => {
+                    leftPush[i] -= moveSide;
+                    invaders[i].style.left = `${leftPush[i]}%`
+                    if (tableInvaders[i][1] != null) {
+                        tableInvaders[i][1] = `${leftPush[i]}%`
+                    }
+                    else {
+                        tableInvaders[i][1] = null;
+                    }
+                }, 3000)
+
+                setTimeout(() => {
+                    invaderTop1 = parseFloat(invaderTop1) + moveDown;
+                    invadersLine1.style.top = `${invaderTop1}%`
+                    if (tableInvaders[i][0] != null) {
+                        tableInvaders[i][0] = `${invaderTop1}%`
+                    }
+                    else {
+                        tableInvaders[i][0] = null;
+                    }
+                }, 4000)
+            }
+
+            else if (i < 19) {
+
+                setTimeout(() => {
+                    leftPush[i] += moveSide;
+                    invaders[i].style.left = `${leftPush[i]}%`;
+                    if (tableInvaders[i][1] != null) {
+                        tableInvaders[i][1] = `${leftPush[i]}%`
+                    }
+                    else {
+                        tableInvaders[i][1] = null;
+                    }
+                }, 1000)
+
+                setTimeout(() => {
+                    invaderTop2 = parseFloat(invaderTop2) + moveDown;
+                    invadersLine2.style.top = `${invaderTop2}%`;
+                    if (tableInvaders[i][0] != null) {
+                        tableInvaders[i][0] = `${invaderTop2}%`
+                    }
+                    else {
+                        tableInvaders[i][0] = null;
+                    }
+                }, 2000)
+
+                setTimeout(() => {
+                    leftPush[i] -= moveSide;
+                    invaders[i].style.left = `${leftPush[i]}%`;
+                    if (tableInvaders[i][1] != null) {
+                        tableInvaders[i][1] = `${leftPush[i]}%`
+                    }
+                    else {
+                        tableInvaders[i][1] = null;
+                    }
+                }, 3000)
+
+                setTimeout(() => {
+                    invaderTop2 = parseFloat(invaderTop2) + moveDown;
+                    invadersLine2.style.top = `${invaderTop2}%`;
+                    if (tableInvaders[i][0] != null) {
+                        tableInvaders[i][0] = `${invaderTop2}%`
+                    }
+                    else {
+                        tableInvaders[i][0] = null;
+                    }
+                }, 4000)
+            }
+
+            else {
+
+                setTimeout(() => {
+                    leftPush[i] += moveSide;
+                    invaders[i].style.left = `${leftPush[i]}%`;
+                    if (tableInvaders[i][1] != null) {
+                        tableInvaders[i][1] = `${leftPush[i]}%`
+                    }
+                    else {
+                        tableInvaders[i][1] = null;
+                    }
+                }, 1000)
+
+                setTimeout(() => {
+                    invaderTop3 = parseFloat(invaderTop3) + moveDown;
+                    invadersLine3.style.top = `${invaderTop3}%`;
+                    if (tableInvaders[i][0] != null) {
+                        tableInvaders[i][0] = `${invaderTop3}%`
+                    }
+                    else {
+                        tableInvaders[i][0] = null;
+                    }
+                }, 2000)
+
+                setTimeout(() => {
+                    leftPush[i] -= moveSide;
+                    invaders[i].style.left = `${leftPush[i]}%`;
+                    if (tableInvaders[i][1] != null) {
+                        tableInvaders[i][1] = `${leftPush[i]}%`
+                    }
+                    else {
+                        tableInvaders[i][1] = null;
+                    }
+                }, 3000)
+
+                setTimeout(() => {
+                    invaderTop3 = parseFloat(invaderTop3) + moveDown;
+                    invadersLine3.style.top = `${invaderTop3}%`;
+                    if (tableInvaders[i][0] != null) {
+                        tableInvaders[i][0] = `${invaderTop3}%`
+                    }
+                    else {
+                        tableInvaders[i][0] = null;
+                    }
+                }, 4000)
+            }
+        }
+        isGameOver(invaderTop1, invaderTop2, invaderTop3);
+        setTimeout(() => {
+            requestAnimationFrame(() => {
+                invadersAreMoving();
+            })
+        }, 4000);
+    }
 }
 
 setTimeout(() => {
@@ -283,22 +306,16 @@ function isGameOver(a, b, c) {
 
     if (a >= theGround || b >= theGround || c >= theGround || score == 2700) {
         gameEnd = true;
+        invadersAreMoving();
     }
+}
 
-    if (gameEnd && score > 2600) {
-        alert("You win !")
-    }
-    else if (gameEnd && score <= 2600) {
-        alert("You lose !")
-    }
-    else {
-        setTimeout(() => {
-            requestAnimationFrame(() => {
-                invadersAreMoving();
-            })
-        }, 4000);
-    }
+/*** Reset ***/
+function reset() {
+    location.reload();
 }
 
 /*** Game First Lauch ***/
 invadersAreComing();
+
+/*** Final Boss ***/

@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Electrolize', sans-serif;
 }
 
 body {
@@ -13,11 +14,25 @@ body {
 }
 
 #score {
+    margin: 1em 0;
     color: red;
     text-align: center;
     font-size: 1.1em;
     font-family: 'Electrolize', sans-serif;
     text-transform: uppercase;
+}
+
+button {
+    padding: 1em;
+    margin: 0 1em;
+    color: red;
+    border: 1px solid red;
+    box-shadow: 0 0 8px red;
+    background: transparent;
+    text-transform: uppercase;
+    font-family: 'Electrolize', sans-serif;
+    cursor: pointer;
+    z-index: 20;
 }
 
 .invader {
@@ -77,4 +92,24 @@ div.invadersLine3 {
     width: 100px;
     height: 100px;
     transition: left 0.1s ease-out;
+}
+
+.win,
+.lose {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    text-transform: uppercase;
+    color: red;
+    animation: blinky 2s infinite;
+}
+
+@keyframes blinky {
+
+    50% {
+        text-shadow: 0 0 12px red;
+    }
+
 }
