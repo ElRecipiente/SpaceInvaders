@@ -8,6 +8,8 @@
 
 body {
     background: black;
+    overflow: hidden;
+    background-image: url(img/mapstars.gif);
 }
 
 #score {
@@ -61,8 +63,12 @@ div.invadersLine3 {
     transition: left 0.1s ease-out;
 }
 
+.dead {
+    background-image: url(img/boum.gif) !important;
+}
+
 #ship {
-    background-image: url(img/sprite_6.png);
+    background-image: url(img/Ship.png);
     background-repeat: no-repeat;
     background-size: cover;
     position: absolute;

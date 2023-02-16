@@ -17,6 +17,9 @@ let invaderTop2 = "20%";
 let invaderTop3 = "30%";
 let leftPush = [];
 let gameEnd = false;
+let moveDown = 0.3;
+let moveSide = 2;
+let theGround = 90;
 
 //*** Enemies Generator ***//
 function invadersAreComing() {
@@ -24,7 +27,7 @@ function invadersAreComing() {
         tableInvaders[i] = new Array();
         let invader = document.createElement("div");
         invader.classList.add("invader");
-        invader.classList.add("invadership");
+        invader.classList.add("invaderStayDead");
 
         if (i < 10) {
             invadersLine1.append(invader);
@@ -53,7 +56,7 @@ function invadersAreComing() {
         }
 
         setTimeout(() => {
-            invader.style.backgroundImage = `url(img/sprite_${Math.floor(Math.random() * 6)}.png)`;
+            invader.style.backgroundImage = `url(img/enemy${Math.floor(Math.random() * 6)}.png)`;
         }, i * 100)
     }
     console.log(tableInvaders);
@@ -64,16 +67,16 @@ function invadersAreComing() {
 //*** Invaders are Moving ! ***//
 function invadersAreMoving() {
 
-    invaders = document.querySelectorAll("div.invadership");
+    invaders = document.querySelectorAll("div.invaderStayDead"); /* 'cause the deads have to still here, but dead */
 
     for (let i = 0; i < invaders.length; i++) {
 
         if (i < 10) {
 
             setTimeout(() => {
-                leftPush[i] += 2;
+                leftPush[i] += moveSide;
                 invaders[i].style.left = `${leftPush[i]}%`
-                if (tableInvaders[i][1] != null) {
+                if (tableInvaders[i][1] != null) { /* Refresh */
                     tableInvaders[i][1] = `${leftPush[i]}%`
                 }
                 else {
@@ -83,9 +86,9 @@ function invadersAreMoving() {
             }, 1000)
 
             setTimeout(() => {
-                invaderTop1 = parseFloat(invaderTop1) + 0.1;
+                invaderTop1 = parseFloat(invaderTop1) + moveDown;
                 invadersLine1.style.top = `${invaderTop1}%`
-                if (tableInvaders[i][0] != null) {
+                if (tableInvaders[i][0] != null) { /* Refresh */
                     tableInvaders[i][0] = `${invaderTop1}%`
                 }
                 else {
@@ -95,7 +98,7 @@ function invadersAreMoving() {
             }, 2000)
 
             setTimeout(() => {
-                leftPush[i] -= 2;
+                leftPush[i] -= moveSide;
                 invaders[i].style.left = `${leftPush[i]}%`
                 if (tableInvaders[i][1] != null) {
                     tableInvaders[i][1] = `${leftPush[i]}%`
@@ -106,7 +109,7 @@ function invadersAreMoving() {
             }, 3000)
 
             setTimeout(() => {
-                invaderTop1 = parseFloat(invaderTop1) + 0.1;
+                invaderTop1 = parseFloat(invaderTop1) + moveDown;
                 invadersLine1.style.top = `${invaderTop1}%`
                 if (tableInvaders[i][0] != null) {
                     tableInvaders[i][0] = `${invaderTop1}%`
@@ -120,7 +123,7 @@ function invadersAreMoving() {
         else if (i < 19) {
 
             setTimeout(() => {
-                leftPush[i] += 2;
+                leftPush[i] += moveSide;
                 invaders[i].style.left = `${leftPush[i]}%`;
                 if (tableInvaders[i][1] != null) {
                     tableInvaders[i][1] = `${leftPush[i]}%`
@@ -131,7 +134,7 @@ function invadersAreMoving() {
             }, 1000)
 
             setTimeout(() => {
-                invaderTop2 = parseFloat(invaderTop2) + 0.1;
+                invaderTop2 = parseFloat(invaderTop2) + moveDown;
                 invadersLine2.style.top = `${invaderTop2}%`;
                 if (tableInvaders[i][0] != null) {
                     tableInvaders[i][0] = `${invaderTop2}%`
@@ -142,7 +145,7 @@ function invadersAreMoving() {
             }, 2000)
 
             setTimeout(() => {
-                leftPush[i] -= 2;
+                leftPush[i] -= moveSide;
                 invaders[i].style.left = `${leftPush[i]}%`;
                 if (tableInvaders[i][1] != null) {
                     tableInvaders[i][1] = `${leftPush[i]}%`
@@ -153,7 +156,7 @@ function invadersAreMoving() {
             }, 3000)
 
             setTimeout(() => {
-                invaderTop2 = parseFloat(invaderTop2) + 0.1;
+                invaderTop2 = parseFloat(invaderTop2) + moveDown;
                 invadersLine2.style.top = `${invaderTop2}%`;
                 if (tableInvaders[i][0] != null) {
                     tableInvaders[i][0] = `${invaderTop2}%`
@@ -167,7 +170,7 @@ function invadersAreMoving() {
         else {
 
             setTimeout(() => {
-                leftPush[i] += 2;
+                leftPush[i] += moveSide;
                 invaders[i].style.left = `${leftPush[i]}%`;
                 if (tableInvaders[i][1] != null) {
                     tableInvaders[i][1] = `${leftPush[i]}%`
@@ -178,7 +181,7 @@ function invadersAreMoving() {
             }, 1000)
 
             setTimeout(() => {
-                invaderTop3 = parseFloat(invaderTop3) + 0.1;
+                invaderTop3 = parseFloat(invaderTop3) + moveDown;
                 invadersLine3.style.top = `${invaderTop3}%`;
                 if (tableInvaders[i][0] != null) {
                     tableInvaders[i][0] = `${invaderTop3}%`
@@ -189,7 +192,7 @@ function invadersAreMoving() {
             }, 2000)
 
             setTimeout(() => {
-                leftPush[i] -= 2;
+                leftPush[i] -= moveSide;
                 invaders[i].style.left = `${leftPush[i]}%`;
                 if (tableInvaders[i][1] != null) {
                     tableInvaders[i][1] = `${leftPush[i]}%`
@@ -200,7 +203,7 @@ function invadersAreMoving() {
             }, 3000)
 
             setTimeout(() => {
-                invaderTop3 = parseFloat(invaderTop3) + 0.1;
+                invaderTop3 = parseFloat(invaderTop3) + moveDown;
                 invadersLine3.style.top = `${invaderTop3}%`;
                 if (tableInvaders[i][0] != null) {
                     tableInvaders[i][0] = `${invaderTop3}%`
@@ -211,15 +214,8 @@ function invadersAreMoving() {
             }, 4000)
         }
     }
-    setTimeout(() => {
-        requestAnimationFrame(() => {
-            invadersAreMoving();
-        })
-    }, 4000);
+    isGameOver(invaderTop1, invaderTop2, invaderTop3);
 }
-
-
-
 
 setTimeout(() => {
     invadersAreMoving();
@@ -229,11 +225,15 @@ setTimeout(() => {
 function isInvaderHere() {
     for (let i = 0; i < tableInvaders.length; i++) {
         if ((parseFloat(tableInvaders[i][0]) < missileY && missileY < parseFloat(tableInvaders[i][0]) + 2) && (parseFloat(tableInvaders[i][1]) < missileX && missileX < parseFloat(tableInvaders[i][1]) + 3)) {
-            invaders[i].classList.remove("invader");
+            invaders[i].classList.add("dead")
             tableInvaders[i][0] = null;
             tableInvaders[i][1] = null;
             score += 100;
             showScore.textContent = `${score}`;
+            setTimeout(() => {
+                invaders[i].classList.remove("invader");
+                invaders[i].classList.remove("dead");
+            }, 400);
         }
     }
 }
@@ -278,4 +278,27 @@ document.addEventListener("keydown", (event) => {
     }
 })
 
+/*** GameEnd ***/
+function isGameOver(a, b, c) {
+
+    if (a >= theGround || b >= theGround || c >= theGround || score == 2700) {
+        gameEnd = true;
+    }
+
+    if (gameEnd && score > 2600) {
+        alert("You win !")
+    }
+    else if (gameEnd && score <= 2600) {
+        alert("You lose !")
+    }
+    else {
+        setTimeout(() => {
+            requestAnimationFrame(() => {
+                invadersAreMoving();
+            })
+        }, 4000);
+    }
+}
+
+/*** Game First Lauch ***/
 invadersAreComing();
