@@ -2,15 +2,16 @@ let theShip = document.getElementById("ship");
 let theMain = document.querySelector("main");
 let showScore = document.querySelector("#score span")
 let score = 0;
-let theMissile = document.getElementById("missile");
+let theMissile; /*= document.getElementById("missile");*/
+let missileX;
+let missileY;
 let invadersLine1 = document.querySelector("div.invadersLine1");
 let invadersLine2 = document.querySelector("div.invadersLine2");
 let invadersLine3 = document.querySelector("div.invadersLine3");
 let invaders;
 let shipX = 47.75;
 let missileToShip = 95;
-let missileX = shipX + 2.25;
-let missileY = missileToShip;
+let reloadMissile = true;
 let tableInvaders = new Array();
 let invaderTop1 = "10%";
 let invaderTop2 = "20%";
@@ -266,16 +267,33 @@ function isInvaderHere() {
 
 //*** Missile Attack ***/
 function missileAttack() {
+    if (reloadMissile) {
+        theMissile = document.createElement("div");
+        theMissile.classList.add("missile");
+        missileY = missileToShip;
+        missileX = shipX + 2.25;
+        theMissile.style.top = `${missileY}%`;
+        theMissile.style.left = `${missileX}%`;
+        theMain.append(theMissile);
+        missileMove();
+        reloadMissile = false;
+        setTimeout(() => {
+            reloadMissile = true;
+        }, 1000);
+    }
+}
+
+function missileMove() {
+
     if (missileY > 0) {
         missileY = missileY - 2;
         theMissile.style.top = `${missileY}%`;
         window.requestAnimationFrame(() => {
-            missileAttack();
+            missileMove();
         })
     }
-    else {
-        missileY = missileToShip;
-        theMissile.style.top = `${missileY}%`;
+    else if (missileY < 0) {
+        theMissile.remove();
     }
     isInvaderHere();
 }
@@ -290,17 +308,16 @@ document.addEventListener("click", () => {
 document.addEventListener("keydown", (event) => {
     let key = event.code
     console.log(key)
-    if ((key === "KeyD" || key === "ArrowRight") && shipX < 94.75 && missileY == missileToShip) {
+    if ((key === "KeyD" || key === "ArrowRight") && shipX < 94.75) {
         shipX += 1;
         theShip.style.left = `${shipX}%`;
-        missileX += 1;
-        theMissile.style.left = `${missileX}%`;
     }
-    else if ((key === "KeyA" || key === "ArrowLeft") && shipX > 0 && missileY == missileToShip) {
+    else if ((key === "KeyA" || key === "ArrowLeft") && shipX > 0) {
         shipX -= 1;
         theShip.style.left = `${shipX}%`;
-        missileX -= 1;
-        theMissile.style.left = `${missileX}%`;
+    }
+    else if (key === "Space") {
+        missileAttack();
     }
 })
 

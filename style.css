@@ -64,7 +64,7 @@ div.invadersLine3 {
     height: 50px;
 }
 
-#missile {
+.missile {
     position: absolute;
     left: 50%;
     top: 95%;
